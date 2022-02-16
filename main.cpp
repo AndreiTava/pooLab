@@ -134,10 +134,16 @@ int main() {
         {
             int x;
             cin >> x;
-            for (int i = x - 1; i < nrPraji - 1; ++i)
-                prajituri[i] = prajituri[i + 1];
-            nrPraji--;
+            if (x >= 1 && x <= nrPraji)
+            {
+                for (int i = x - 1; i < nrPraji - 1; ++i)
+                    prajituri[i] = prajituri[i + 1];
+                nrPraji--;
+            }
+            else
+                cout << "Nu exista prajitura";
         }
+
     }
 
     return 0;
