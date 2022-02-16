@@ -4,6 +4,7 @@
 #define PI 3.1415
 
 using namespace std;
+
 class Figura {
 protected:
     int inaltime;
@@ -13,7 +14,7 @@ protected:
 public:
     void printInfo()
     {
-        cout << suprafata << " " << volum<<endl;
+        cout << volum * 2 << "g Gem si " << suprafata << "g Frisca" << endl;
     }
 
 };
@@ -85,11 +86,59 @@ public:
 
 int main() {
     Figura prajituri[100];
-    prajituri[0] = Figura(Triunghi(10, 3, 4));
-    prajituri[1] = Figura(Cerc(10, 3));
-    prajituri[1].printInfo();
-    string command;
-    while(command != )
+    int nrPraji = 0;
+    string command = "";
+    while (command != string("STOP"))
+    {
+        cin >> command;
+
+        if (command == string("ADD"))
+        {
+            string tip = "invalid";
+            int inaltime;
+            cin >> tip;
+            if (tip == string("cerc"))
+            {
+                int raza;
+                cin >> raza >> inaltime;
+                prajituri[nrPraji] = Figura(Cerc(inaltime, raza));
+
+            }
+            else if (tip == string("dreptunghi"))
+            {
+                int lmic, lmare;
+                cin >> lmic >> lmare >> inaltime;
+                prajituri[nrPraji] = Figura(Dreptunghi(inaltime,lmic,lmare));
+            }
+            else if (tip == string("patrat"))
+            {
+                int lat;
+                cin >> lat >> inaltime;
+                prajituri[nrPraji] = Figura(Patrat(inaltime, lat));
+            }
+            else if (tip == string("triunghi"))
+            {
+                int cmic, cmare;
+                cin >> cmic >> cmare >> inaltime;
+                prajituri[nrPraji] = Figura(Triunghi(inaltime, cmic,cmare));
+            }
+            else {
+                cout << "Forma invalida \n";
+                continue;
+                
+            }
+            prajituri[nrPraji].printInfo();
+            nrPraji++;
+        }
+        else if (command == string("REMOVE"))
+        {
+            int x;
+            cin >> x;
+            for (int i = x - 1; i < nrPraji - 1; ++i)
+                prajituri[i] = prajituri[i + 1];
+            nrPraji--;
+        }
+    }
 
     return 0;
 }
