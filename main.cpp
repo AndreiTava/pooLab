@@ -14,8 +14,10 @@ protected:
 public:
     void printInfo()
     {
-        cout << volum * 2 << "g Gem si " << suprafata << "g Frisca" << endl;
+        cout << gem << "g Gem si " << frisca << "g Frisca" << endl;
     }
+    double gem;
+    double frisca;
 
 };
 
@@ -34,6 +36,8 @@ public:
         volum = raza * raza * PI * inaltime;
         double supBaza = raza * raza * PI;
         suprafata = raza * 2 * PI * inaltime + supBaza; //aria laterala + aria bazei
+        frisca = suprafata;
+        gem = volum * 2;
     }
 };
 
@@ -53,6 +57,8 @@ public:
     {
         volum = lmic * lmare * inaltime;
         suprafata = 2 * inaltime * (lmic + lmare) + lmic * lmare; //ditto
+        frisca = suprafata;
+        gem = volum * 2;
     }
 };
 
@@ -80,6 +86,8 @@ public:
         volum = cmic * cmare * inaltime / 2;
         double ipot = sqrt(cmic * cmic + cmare * cmare);
         suprafata = cmic * cmare / 2 + inaltime * (cmic + cmare + ipot);
+        frisca = suprafata;
+        gem = volum * 2;
     }
 };
 
@@ -143,7 +151,18 @@ int main() {
             else
                 cout << "Nu exista prajitura";
         }
-
+        else if (command == string("TOTAL"))
+        {
+            double totalFrisca = 0;
+            double totalGem = 0;
+            for (int i = 0; i < nrPraji; ++i)
+            {
+                totalFrisca += prajituri[i].frisca;
+                totalGem += prajituri[i].gem;
+                
+            }
+            cout << totalGem << "g Gem si " << totalFrisca << "g Frisca" << endl;
+        }
     }
 
     return 0;
