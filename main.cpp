@@ -1,77 +1,75 @@
 #include <iostream>
 #include <cmath>
-
-class Complex
+namespace lab1
 {
-private:
-	double real, imaginary;
-public:
-	Complex(double re=0, double im=0) : real(re), imaginary(im){};
-	Complex(Complex& cpy) : Complex(cpy.real, cpy.imaginary){};
-	double getReal() const
+	class Complex
 	{
-		return real;
-	}
-	void setReal(double re)
-	{
-		real = re;
-	}
-	double getImaginary() const
-	{
-		return imaginary;
-	}
-	void setImaginary(double im)
-	{
-		imaginary = im;
-	}
-	void print()
-	{
-		if (real != 0)
-			std::cout << real;
-		if (imaginary != 0)
+	private:
+		double real, imaginary;
+	public:
+		Complex(double re = 0, double im = 0) : real(re), imaginary(im) {};
+		Complex(Complex& cpy) : Complex(cpy.real, cpy.imaginary) {};
+		double getReal() const
 		{
-
-			if (imaginary < 0)
-				std::cout << "-";
-			else if (real != 0)
-				std::cout << "+";
-			std::cout << "i*" << abs(imaginary)<<std::endl;
-
+			return real;
 		}
-	}
+		void setReal(double re)
+		{
+			real = re;
+		}
+		double getImaginary() const
+		{
+			return imaginary;
+		}
+		void setImaginary(double im)
+		{
+			imaginary = im;
+		}
+		void print()
+		{
+			if (real != 0)
+				std::cout << real;
+			if (imaginary != 0)
+			{
 
-	double getMagnitude() const
-	{
-		return sqrt(real * real + imaginary * imaginary);
-	}
+				if (imaginary < 0)
+					std::cout << "-";
+				else if (real != 0)
+					std::cout << "+";
+				std::cout << "i*" << abs(imaginary) << std::endl;
 
-	Complex operator+(Complex& rhs)
-	{
-		Complex res(real + rhs.real, imaginary + rhs.imaginary);
-		return res;
-	}
-	Complex operator*(Complex& rhs)
-	{
-		Complex res(real * rhs.real - imaginary * rhs.imaginary, real * rhs.imaginary + rhs.real * imaginary);
-		return res;
-	}
-	Complex operator/(Complex& rhs)
-	{
-		double mag = rhs.getMagnitude();
-		Complex inverse(rhs.real / (mag * mag), (- 1) * rhs.imaginary / (mag * mag));
-		inverse.print();
-		return *this * inverse;
-	}
+			}
+		}
 
-};
+		double getMagnitude() const
+		{
+			return sqrt(real * real + imaginary * imaginary);
+		}
 
+		Complex operator+(Complex& rhs)
+		{
+			Complex res(real + rhs.real, imaginary + rhs.imaginary);
+			return res;
+		}
+		Complex operator*(Complex& rhs)
+		{
+			Complex res(real * rhs.real - imaginary * rhs.imaginary, real * rhs.imaginary + rhs.real * imaginary);
+			return res;
+		}
+		Complex operator/(Complex& rhs)
+		{
+			double mag = rhs.getMagnitude();
+			Complex inverse(rhs.real / (mag * mag), (-1) * rhs.imaginary / (mag * mag));
+			inverse.print();
+			return *this * inverse;
+		}
+
+	};
+}
 using namespace std;
 
 int main() {
 
-	Complex nr1(-1,-3);
-	Complex nr2(2, 5);
-	Complex nr3 = nr1 / nr2;
-	nr3.print();
+	
 
 }
