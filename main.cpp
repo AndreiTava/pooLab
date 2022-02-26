@@ -66,6 +66,107 @@ namespace lab1
 
 	};
 }
+
+class persoana
+{
+private:
+	std::string nume;
+	int an_nastere;
+	char sex;
+public:
+	persoana(std::string pnum, int an, char s)
+	{
+		nume = pnum;
+		an_nastere = (an >= 0) ? an : 0;
+		sex = (s == 'M' || s == 'F') ? s : 'F';
+	}
+	std::string getNume()
+	{
+		return nume;
+	}
+	void setNume(std::string pnum)
+	{
+		nume = pnum;
+	}
+	int getAn()
+	{
+		return an_nastere;
+	}
+	void setAn(int an)
+	{
+		an_nastere = an_nastere = (an >= 0) ? an : 0;
+	}
+	char getSex()
+	{
+		return sex;
+	}
+	void setSex(char s)
+	{
+		sex = (s == 'M' || s == 'F') ? s : 'F';
+	}
+
+};
+
+class baza_de_date
+{
+private:
+	persoana** persoane;
+	int nr_pers;
+	void remPers(int pos)
+	{
+		delete persoane[pos];
+		for (int i = pos; i < nr_pers - 1; i++)
+			persoane[i] =persoane[i + 1];
+		--nr_pers;
+		delete persoane[nr_pers];
+	}
+public:
+	baza_de_date(int nr)
+	{
+		nr_pers = 0;
+		persoane = new persoana*[nr];
+		for (int i = 0; i < nr; ++i)
+			persoane[i] = nullptr;
+	}
+	~baza_de_date()
+	{
+		for (int i = 0; i < nr_pers; ++i)
+			delete persoane[i];
+		delete[] persoane;
+	}
+	void addPers(std::string pnum, int an, char s)
+	{
+		persoana* pers = new persoana(pnum, an, s);
+		persoane[nr_pers] = pers;
+		++nr_pers;
+	}
+	void removePers(std::string pnum)
+	{
+		for (int i = 0; i < nr_pers; ++i)
+		{
+			if (persoane[i]->getNume() == pnum)
+				remPers(i);
+		}
+	}
+	void removePers(int an)
+	{
+		for (int i = 0; i < nr_pers; ++i)
+		{
+			if (persoane[i]->getAn() == an)
+				remPers(i);
+		}
+	}
+	void removePers(char s)
+	{
+		for (int i = 0; i < nr_pers; ++i)
+		{
+			if (persoane[i]->getSex() == s)
+				remPers(i);
+		}
+	}
+
+};
+
 using namespace std;
 
 int main() {
