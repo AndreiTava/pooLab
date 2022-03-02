@@ -77,7 +77,7 @@ private:
 public:
 	Persoana(const char pnum[]="", int an = 0, char s = 'F')
 	{
-		size_t nume_size = strlen(pnum)+1;
+		size_t nume_size = strlen(pnum) + 1;
 		nume = new char[nume_size];
 		strcpy_s(nume,nume_size,pnum);
 		an_nastere = (an >= 0) ? an : 0;
@@ -147,8 +147,8 @@ private:
 		delete persoane[pos];
 		for (int i = pos; i < nr_pers - 1; i++)
 			persoane[i] =persoane[i + 1];
+		persoane[nr_pers] = nullptr;
 		--nr_pers;
-		delete persoane[nr_pers];
 	}
 public:
 	Baza_de_date(int nr=100)
@@ -173,9 +173,10 @@ public:
 			cin >> *pers;
 			persoane[nr_pers] = pers;
 			++nr_pers;
+			cout << "\nPersoana adaugata cu succes!\n";
 		}
 		else
-			cout << "Adaugare Imposibila, limita de persoane atinsa\n";
+			cout << "\nAdaugare Imposibila, limita de persoane atinsa\n";
 	}
 	void addPers(const char pnum[], int an, char s)
 	{
@@ -184,25 +185,38 @@ public:
 			Persoana* pers = new Persoana(pnum, an, s);
 			persoane[nr_pers] = pers;
 			++nr_pers;
+			cout << "\nPersoana adaugata cu succes!\n";
 		}
 		else
-			cout << "Adaugare Imposibila, limita de persoane atinsa\n";
+			cout << "\nAdaugare imposibila, limita de persoane atinsa!\n";
 	}
 	void removePers(const char pnum[])
 	{
+		int pers_gas = 0;
 		for (int i = 0; i < nr_pers; ++i)
 		{
-			if (strcmp(persoane[i]->nume,pnum))
+			if (strcmp(persoane[i]->nume, pnum) == 0)
+			{
+				++pers_gas;
 				remPers(i);
+				--i;
+			}
 		}
+		cout << "\nAu fost eliminate " << pers_gas << " persoane din baza de date.\n";
 	}
 	void removePers(int an)
 	{
+		int pers_gas = 0;
 		for (int i = 0; i < nr_pers; ++i)
 		{
 			if (persoane[i]->an_nastere == an)
+			{
+				++pers_gas;
 				remPers(i);
+				--i;
+			}
 		}
+		cout << "\nAu fost eliminate " << pers_gas << " persoane din baza de date.\n";
 	}
 	void removePers(char s)
 	{
@@ -231,6 +245,7 @@ void Baza_de_date::afisSortNume()
 		}
 
 	}
+	cout << "\nPersoanele sortate alfabetic: \n\n";
 	for (int i = 0; i < nr_pers; ++i)
 		cout << *to_sort[i];
 
@@ -251,6 +266,7 @@ void Baza_de_date::afisSortAn()
 		}
 
 	}
+	cout << "\nPersoanele sortate dupa anul nasterii: \n\n";
 	for (int i = 0; i < nr_pers; ++i)
 		cout << *to_sort[i];
 }
@@ -263,45 +279,45 @@ private:
 public:
 	Meniu()
 	{
-		cout << "----User Interface V0.01a----\n";
+		cout << "----User Interface V0.02----\n\n";
 	}
 	void loop()
 	{
 		while (true)
 		{
-			cout << "Introduceti Comanda Dorita('HELP' pentru lista de comenzi): ";
+			cout << "\nIntroduceti Comanda Dorita('HELP' pentru lista de comenzi): ";
 			cin.getline(cmd, 42);
 			if (strcmp(cmd, "HELP") == 0)
 			{
-				cout << "Comenzile acceptate sunt:\
-				ADD -Adauga o persoana in Baza de Date\n\
-				REMBN - Elimina toate persoanele din baza de date cu numele introdus\n\
-				REMBY - Elimina toate persoanele din baza de date cu anul introdus\n\
-				REMBS - Elimina toate persoanele din baza de date cu sexul introdus\n\
-				AFSN - Afiseaza toata baza de date sortata alfabetic dupa nume\n\
-				AFSA - Afiseaza toata baza de data sortata dupa an\n\
-				EXIT - Iesire din program\n";
+				cout << "\nComenzile acceptate sunt:\n\
+ADD - Adauga o persoana in Baza de Date\n\
+REMBN - Elimina toate persoanele din baza de date cu numele introdus\n\
+REMBY - Elimina toate persoanele din baza de date cu anul introdus\n\
+REMBS - Elimina toate persoanele din baza de date cu sexul introdus\n\
+AFSN - Afiseaza toata baza de date sortata alfabetic dupa nume\n\
+AFSA - Afiseaza toata baza de data sortata dupa an\n\
+EXIT - Iesire din program\n";
 			}
 			else if (strcmp(cmd, "ADD") == 0)
 				bd.addPers();
 			else if (strcmp(cmd, "REMBN") == 0)
 			{
 				char nume[42];
-				cout << "Introduceti Numele: ";
+				cout << "\nIntroduceti Numele de Eliminat: ";
 				cin.getline(nume, 42);
 				bd.removePers(nume);
 			}
 			else if (strcmp(cmd, "REMBA") == 0)
 			{
 				int an;
-				cout << "Introduceti Anul: ";
+				cout << "Introduceti Anul de Eliminat: ";
 				cin >> an;
 				bd.removePers(an);
 			}
 			else if (strcmp(cmd, "REMBS") == 0)
 			{
 				char s;
-				cout << "Introduceti Sexul: ";
+				cout << "Introduceti Sexul de Eliminat: ";
 				cin >> s;
 				bd.removePers(s);
 			}
@@ -312,7 +328,7 @@ public:
 			else if (strcmp(cmd, "EXIT") == 0)
 				break;
 			else
-				cout << "Comanda invalida\n";
+				cout << "\nComanda invalida\n";
 		}
 	}
 };
