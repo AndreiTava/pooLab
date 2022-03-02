@@ -77,8 +77,9 @@ private:
 public:
 	Persoana(const char pnum[]="", int an = 0, char s = 'F')
 	{
-		nume = new char[strlen(pnum)];
-		strcpy_s(nume,strlen(pnum),pnum);
+		size_t nume_size = strlen(pnum)+1;
+		nume = new char[nume_size];
+		strcpy_s(nume,nume_size,pnum);
 		an_nastere = (an >= 0) ? an : 0;
 		sex = (s == 'M' || s == 'F') ? s : 'F';
 	}
@@ -89,8 +90,9 @@ public:
 	void setNume(const char pnum[])
 	{
 		delete[] nume;
-		nume = new char[strlen(pnum)];
-		strcpy_s(nume,strlen(pnum),pnum);
+		size_t nume_size = strlen(pnum) + 1;
+		nume = new char[nume_size];
+		strcpy_s(nume,nume_size,pnum);
 	}
 	int getAn() const
 	{
@@ -110,18 +112,26 @@ public:
 	}
 	friend ostream& operator<<(ostream& out ,const Persoana& p)
 	{
-		out << "Nume: " << p.nume << " An Nastere: " << p.an_nastere << " Sex: " << p.sex << endl << endl;
+		out << "Nume: " << p.nume << ", An Nastere: " << p.an_nastere << ", Sex: " << p.sex << endl << endl;
+		return out;
 	}
 	friend istream& operator>>(istream& in, Persoana& p)
 	{
 		char pnum[42];
+		int an;
+		char sex;
 		cout << "Introduceti Numele: ";
+		in.getline(pnum, 42);
 		p.setNume(pnum);
 		cout << "\nIntroduceti Anul Nasterii: ";
-		in >> p.an_nastere;
+		in >> an;
+		p.setAn(an);
 		cout << " \nIntroduceti Sexul(M/F): ";
-		in >> p.sex;
+		in >> sex;
+		p.setSex(sex);
 		cout << endl;
+		in.get();
+		return in;
 	}
 	friend class Baza_de_date;
 };
@@ -159,6 +169,12 @@ public:
 	{
 		Persoana* pers = new Persoana();
 		cin >> *pers;
+		persoane[nr_pers] = pers;
+		++nr_pers;
+	}
+	void addPers(const char pnum[], int an, char s)
+	{
+		Persoana* pers = new Persoana(pnum, an, s);
 		persoane[nr_pers] = pers;
 		++nr_pers;
 	}
@@ -206,7 +222,7 @@ void Baza_de_date::afisSortNume()
 
 	}
 	for (int i = 0; i < nr_pers; ++i)
-		cout << to_sort[i];
+		cout << *to_sort[i];
 
 }
 
@@ -226,14 +242,15 @@ void Baza_de_date::afisSortAn()
 
 	}
 	for (int i = 0; i < nr_pers; ++i)
-		cout << to_sort[i];
+		cout << *to_sort[i];
 }
 
 int main() {
 
 	Baza_de_date bd(10);
-	bd.addPers();
-	bd.addPers();
-	bd.addPers();
+	bd.addPers("Esteban Samuel", 1969,'M');
+	bd.addPers("Linda Crow", 2000, 'F');
+	bd.addPers("Pakalu Papito", 1800, 'M');
+	bd.afisSortNume();
 
 }
