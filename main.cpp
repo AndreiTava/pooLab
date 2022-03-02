@@ -167,16 +167,26 @@ public:
 	}
 	void addPers()
 	{
-		Persoana* pers = new Persoana();
-		cin >> *pers;
-		persoane[nr_pers] = pers;
-		++nr_pers;
+		if (nr_pers < max_size)
+		{
+			Persoana* pers = new Persoana();
+			cin >> *pers;
+			persoane[nr_pers] = pers;
+			++nr_pers;
+		}
+		else
+			cout << "Adaugare Imposibila, limita de persoane atinsa\n";
 	}
 	void addPers(const char pnum[], int an, char s)
 	{
-		Persoana* pers = new Persoana(pnum, an, s);
-		persoane[nr_pers] = pers;
-		++nr_pers;
+		if (nr_pers < max_size)
+		{
+			Persoana* pers = new Persoana(pnum, an, s);
+			persoane[nr_pers] = pers;
+			++nr_pers;
+		}
+		else
+			cout << "Adaugare Imposibila, limita de persoane atinsa\n";
 	}
 	void removePers(const char pnum[])
 	{
