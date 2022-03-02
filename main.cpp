@@ -1,94 +1,98 @@
 #include <iostream>
-#include <cmath>
-namespace lab1
-{
-	class Complex
-	{
-	private:
-		double real, imaginary;
-	public:
-		Complex(double re = 0, double im = 0) : real(re), imaginary(im) {};
-		Complex(Complex& cpy) : Complex(cpy.real, cpy.imaginary) {};
-		double getReal() const
-		{
-			return real;
-		}
-		void setReal(double re)
-		{
-			real = re;
-		}
-		double getImaginary() const
-		{
-			return imaginary;
-		}
-		void setImaginary(double im)
-		{
-			imaginary = im;
-		}
-		void print()
-		{
-			if (real != 0)
-				std::cout << real;
-			if (imaginary != 0)
-			{
+#include <string.h>
+//namespace lab1
+//{
+//	class Complex
+//	{
+//	private:
+//		double real, imaginary;
+//	public:
+//		Complex(double re = 0, double im = 0) : real(re), imaginary(im) {};
+//		Complex(Complex& cpy) : Complex(cpy.real, cpy.imaginary) {};
+//		double getReal() const
+//		{
+//			return real;
+//		}
+//		void setReal(double re)
+//		{
+//			real = re;
+//		}
+//		double getImaginary() const
+//		{
+//			return imaginary;
+//		}
+//		void setImaginary(double im)
+//		{
+//			imaginary = im;
+//		}
+//		void print()
+//		{
+//			if (real != 0)
+//				cout << real;
+//			if (imaginary != 0)
+//			{
+//
+//				if (imaginary < 0)
+//					cout << "-";
+//				else if (real != 0)
+//					cout << "+";
+//				cout << "i*" << abs(imaginary) << endl;
+//
+//			}
+//		}
+//
+//		double getMagnitude() const
+//		{
+//			return sqrt(real * real + imaginary * imaginary);
+//		}
+//
+//		Complex operator+(Complex& rhs)
+//		{
+//			Complex res(real + rhs.real, imaginary + rhs.imaginary);
+//			return res;
+//		}
+//		Complex operator*(Complex& rhs)
+//		{
+//			Complex res(real * rhs.real - imaginary * rhs.imaginary, real * rhs.imaginary + rhs.real * imaginary);
+//			return res;
+//		}
+//		Complex operator/(Complex& rhs)
+//		{
+//			double mag = rhs.getMagnitude();
+//			Complex inverse(rhs.real / (mag * mag), (-1) * rhs.imaginary / (mag * mag));
+//			inverse.print();
+//			return *this * inverse;
+//		}
+//
+//	};
+//}
 
-				if (imaginary < 0)
-					std::cout << "-";
-				else if (real != 0)
-					std::cout << "+";
-				std::cout << "i*" << abs(imaginary) << std::endl;
-
-			}
-		}
-
-		double getMagnitude() const
-		{
-			return sqrt(real * real + imaginary * imaginary);
-		}
-
-		Complex operator+(Complex& rhs)
-		{
-			Complex res(real + rhs.real, imaginary + rhs.imaginary);
-			return res;
-		}
-		Complex operator*(Complex& rhs)
-		{
-			Complex res(real * rhs.real - imaginary * rhs.imaginary, real * rhs.imaginary + rhs.real * imaginary);
-			return res;
-		}
-		Complex operator/(Complex& rhs)
-		{
-			double mag = rhs.getMagnitude();
-			Complex inverse(rhs.real / (mag * mag), (-1) * rhs.imaginary / (mag * mag));
-			inverse.print();
-			return *this * inverse;
-		}
-
-	};
-}
-
-class persoana
+using namespace std;
+class Persoana
 {
 private:
-	std::string nume;
+	char* nume;
 	int an_nastere;
 	char sex;
 public:
-	persoana(std::string pnum, int an, char s)
+	Persoana(const char pnum[]="", int an = 0, char s = 'F')
 	{
-		nume = pnum;
+		nume = new char[strlen(pnum)];
+		strcpy_s(nume,strlen(pnum),pnum);
 		an_nastere = (an >= 0) ? an : 0;
 		sex = (s == 'M' || s == 'F') ? s : 'F';
 	}
-	std::string getNume()
+	char* getNume() const 
 	{
 		return nume;
 	}
-	void setNume(std::string pnum)
+	void setNume(const char pnum[])
 	{
-		nume = pnum;
+		delete[] nume;
+		nume = new char[strlen(pnum)];
+		strcpy_s(nume,strlen(pnum),pnum);
 	}
-	int getAn()
+	int getAn() const
 	{
 		return an_nastere;
 	}
@@ -96,7 +100,7 @@ public:
 	{
 		an_nastere = an_nastere = (an >= 0) ? an : 0;
 	}
-	char getSex()
+	char getSex() const
 	{
 		return sex;
 	}
@@ -104,13 +108,29 @@ public:
 	{
 		sex = (s == 'M' || s == 'F') ? s : 'F';
 	}
-
+	friend ostream& operator<<(ostream& out ,const Persoana& p)
+	{
+		out << "Nume: " << p.nume << " An Nastere: " << p.an_nastere << " Sex: " << p.sex << endl << endl;
+	}
+	friend istream& operator>>(istream& in, Persoana& p)
+	{
+		char pnum[42];
+		cout << "Introduceti Numele: ";
+		p.setNume(pnum);
+		cout << "\nIntroduceti Anul Nasterii: ";
+		in >> p.an_nastere;
+		cout << " \nIntroduceti Sexul(M/F): ";
+		in >> p.sex;
+		cout << endl;
+	}
+	friend class Baza_de_date;
 };
 
-class baza_de_date
+class Baza_de_date
 {
 private:
-	persoana** persoane;
+	Persoana** persoane;
+	int max_size;
 	int nr_pers;
 	void remPers(int pos)
 	{
@@ -121,30 +141,32 @@ private:
 		delete persoane[nr_pers];
 	}
 public:
-	baza_de_date(int nr)
+	Baza_de_date(int nr)
 	{
+		max_size = nr;
 		nr_pers = 0;
-		persoane = new persoana*[nr];
-		for (int i = 0; i < nr; ++i)
+		persoane = new Persoana*[max_size];
+		for (int i = 0; i < max_size; ++i)
 			persoane[i] = nullptr;
 	}
-	~baza_de_date()
+	~Baza_de_date()
 	{
 		for (int i = 0; i < nr_pers; ++i)
 			delete persoane[i];
 		delete[] persoane;
 	}
-	void addPers(std::string pnum, int an, char s)
+	void addPers()
 	{
-		persoana* pers = new persoana(pnum, an, s);
+		Persoana* pers = new Persoana();
+		cin >> *pers;
 		persoane[nr_pers] = pers;
 		++nr_pers;
 	}
-	void removePers(std::string pnum)
+	void removePers(const char pnum[])
 	{
 		for (int i = 0; i < nr_pers; ++i)
 		{
-			if (persoane[i]->getNume() == pnum)
+			if (strcmp(persoane[i]->nume,pnum))
 				remPers(i);
 		}
 	}
@@ -152,7 +174,7 @@ public:
 	{
 		for (int i = 0; i < nr_pers; ++i)
 		{
-			if (persoane[i]->getAn() == an)
+			if (persoane[i]->an_nastere == an)
 				remPers(i);
 		}
 	}
@@ -160,17 +182,58 @@ public:
 	{
 		for (int i = 0; i < nr_pers; ++i)
 		{
-			if (persoane[i]->getSex() == s)
+			if (persoane[i]->sex == s)
 				remPers(i);
 		}
 	}
-
+	void afisSortNume();
+	void afisSortAn();
 };
 
-using namespace std;
+void Baza_de_date::afisSortNume()
+{
+	Persoana** to_sort = new Persoana*[nr_pers];
+	to_sort[0] = persoane[0];
+	for (int i = 1; i < nr_pers; ++i)
+	{
+		to_sort[i] = persoane[i];
+		int j = i;
+		while (j > 0 && strcmp(to_sort[j]->nume, to_sort[j-1]->nume) < 0)
+		{
+			swap(to_sort[j], to_sort[j - 1]);
+			--j;
+		}
+
+	}
+	for (int i = 0; i < nr_pers; ++i)
+		cout << to_sort[i];
+
+}
+
+void Baza_de_date::afisSortAn()
+{
+	Persoana** to_sort = new Persoana * [nr_pers];
+	to_sort[0] = persoane[0];
+	for (int i = 1; i < nr_pers; ++i)
+	{
+		to_sort[i] = persoane[i];
+		int j = i;
+		while (j > 0 && to_sort[j]->an_nastere < to_sort[j - 1]->an_nastere)
+		{
+			swap(to_sort[j], to_sort[j - 1]);
+			--j;
+		}
+
+	}
+	for (int i = 0; i < nr_pers; ++i)
+		cout << to_sort[i];
+}
 
 int main() {
 
-	
+	Baza_de_date bd(10);
+	bd.addPers();
+	bd.addPers();
+	bd.addPers();
 
 }
