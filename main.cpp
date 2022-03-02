@@ -100,7 +100,7 @@ public:
 	}
 	void setAn(int an)
 	{
-		an_nastere = an_nastere = (an >= 0) ? an : 0;
+		an_nastere = (an >= 0) ? an : 0;
 	}
 	char getSex() const
 	{
@@ -151,7 +151,7 @@ private:
 		delete persoane[nr_pers];
 	}
 public:
-	Baza_de_date(int nr)
+	Baza_de_date(int nr=100)
 	{
 		max_size = nr;
 		nr_pers = 0;
@@ -255,12 +255,71 @@ void Baza_de_date::afisSortAn()
 		cout << *to_sort[i];
 }
 
+class Meniu
+{
+private:
+	Baza_de_date bd;
+	char cmd[42]="";
+public:
+	Meniu()
+	{
+		cout << "----User Interface V0.01a----\n";
+	}
+	void loop()
+	{
+		while (true)
+		{
+			cout << "Introduceti Comanda Dorita('HELP' pentru lista de comenzi): ";
+			cin.getline(cmd, 42);
+			if (strcmp(cmd, "HELP") == 0)
+			{
+				cout << "Comenzile acceptate sunt:\
+				ADD -Adauga o persoana in Baza de Date\n\
+				REMBN - Elimina toate persoanele din baza de date cu numele introdus\n\
+				REMBY - Elimina toate persoanele din baza de date cu anul introdus\n\
+				REMBS - Elimina toate persoanele din baza de date cu sexul introdus\n\
+				AFSN - Afiseaza toata baza de date sortata alfabetic dupa nume\n\
+				AFSA - Afiseaza toata baza de data sortata dupa an\n\
+				EXIT - Iesire din program\n";
+			}
+			else if (strcmp(cmd, "ADD") == 0)
+				bd.addPers();
+			else if (strcmp(cmd, "REMBN") == 0)
+			{
+				char nume[42];
+				cout << "Introduceti Numele: ";
+				cin.getline(nume, 42);
+				bd.removePers(nume);
+			}
+			else if (strcmp(cmd, "REMBA") == 0)
+			{
+				int an;
+				cout << "Introduceti Anul: ";
+				cin >> an;
+				bd.removePers(an);
+			}
+			else if (strcmp(cmd, "REMBS") == 0)
+			{
+				char s;
+				cout << "Introduceti Sexul: ";
+				cin >> s;
+				bd.removePers(s);
+			}
+			else if (strcmp(cmd, "AFSN") == 0)
+				bd.afisSortNume();
+			else if (strcmp(cmd, "AFSA") == 0)
+				bd.afisSortAn();
+			else if (strcmp(cmd, "EXIT") == 0)
+				break;
+			else
+				cout << "Comanda invalida\n";
+		}
+	}
+};
+
+
 int main() {
 
-	Baza_de_date bd(10);
-	bd.addPers("Esteban Samuel", 1969,'M');
-	bd.addPers("Linda Crow", 2000, 'F');
-	bd.addPers("Pakalu Papito", 1800, 'M');
-	bd.afisSortNume();
-
+	Meniu m;
+	m.loop();
 }
