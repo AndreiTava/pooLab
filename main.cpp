@@ -117,7 +117,20 @@ public:
 	Baza_de_date(const Baza_de_date& baza)
 	{
 		max_size = baza.max_size;
-		nr_pers = baza.nr_pers;
+		nr_pers = (baza.nr_pers <= max_size)? baza.nr_pers: max_size; // nu era necesar dar voiam sa scap de un warning
+		persoane = new Persoana * [max_size];
+		for (int i = 0; i < nr_pers; ++i)
+			persoane[i] = new Persoana(*baza.persoane[i]);
+		for (int i = nr_pers; i < max_size; ++i)
+			persoane[i] = nullptr;
+	}
+	void operator=(const Baza_de_date& baza)
+	{
+		max_size = baza.max_size;
+		nr_pers = nr_pers = (baza.nr_pers <= max_size) ? baza.nr_pers : max_size; // nu era necesar dar voiam sa scap de un warning
+		for (int i = 0; i < nr_pers; ++i)
+			delete persoane[i];
+		delete[] persoane;
 		persoane = new Persoana * [max_size];
 		for (int i = 0; i < nr_pers; ++i)
 			persoane[i] = new Persoana(*baza.persoane[i]);
@@ -129,20 +142,6 @@ public:
 		for (int i = 0; i < nr_pers; ++i)
 			delete persoane[i];
 		delete[] persoane;
-	}
-
-	void operator=(const Baza_de_date& baza)
-	{
-		max_size = baza.max_size;
-		nr_pers = baza.nr_pers;
-		for (int i = 0; i < nr_pers; ++i)
-			delete persoane[i];
-		delete[] persoane;
-		persoane = new Persoana * [max_size];
-		for (int i = 0; i < nr_pers; ++i)
-			persoane[i] = new Persoana(*baza.persoane[i]);
-		for (int i = nr_pers; i < max_size; ++i)
-			persoane[i] = nullptr;
 	}
 	void addPers()
 	{
