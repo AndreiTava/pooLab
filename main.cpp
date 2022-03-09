@@ -1,71 +1,6 @@
 #include <iostream>
 #include <string.h>
-//namespace lab1
-//{
-//	class Complex
-//	{
-//	private:
-//		double real, imaginary;
-//	public:
-//		Complex(double re = 0, double im = 0) : real(re), imaginary(im) {};
-//		Complex(Complex& cpy) : Complex(cpy.real, cpy.imaginary) {};
-//		double getReal() const
-//		{
-//			return real;
-//		}
-//		void setReal(double re)
-//		{
-//			real = re;
-//		}
-//		double getImaginary() const
-//		{
-//			return imaginary;
-//		}
-//		void setImaginary(double im)
-//		{
-//			imaginary = im;
-//		}
-//		void print()
-//		{
-//			if (real != 0)
-//				cout << real;
-//			if (imaginary != 0)
-//			{
-//
-//				if (imaginary < 0)
-//					cout << "-";
-//				else if (real != 0)
-//					cout << "+";
-//				cout << "i*" << abs(imaginary) << endl;
-//
-//			}
-//		}
-//
-//		double getMagnitude() const
-//		{
-//			return sqrt(real * real + imaginary * imaginary);
-//		}
-//
-//		Complex operator+(Complex& rhs)
-//		{
-//			Complex res(real + rhs.real, imaginary + rhs.imaginary);
-//			return res;
-//		}
-//		Complex operator*(Complex& rhs)
-//		{
-//			Complex res(real * rhs.real - imaginary * rhs.imaginary, real * rhs.imaginary + rhs.real * imaginary);
-//			return res;
-//		}
-//		Complex operator/(Complex& rhs)
-//		{
-//			double mag = rhs.getMagnitude();
-//			Complex inverse(rhs.real / (mag * mag), (-1) * rhs.imaginary / (mag * mag));
-//			inverse.print();
-//			return *this * inverse;
-//		}
-//
-//	};
-//}
+
 
 using namespace std;
 class Persoana
@@ -83,7 +18,17 @@ public:
 		an_nastere = (an >= 0) ? an : 0;
 		sex = (s == 'M' || s == 'F') ? s : 'F';
 	}
-	char* getNume() const 
+	Persoana(const Persoana& pers)
+	{
+		setNume(pers.nume);
+		setAn(pers.an_nastere);
+		setSex(pers.sex);
+	}
+	~Persoana()
+	{
+		delete[] nume;
+	}
+	const char* getNume() const 
 	{
 		return nume;
 	}
@@ -94,7 +39,7 @@ public:
 		nume = new char[nume_size];
 		strcpy_s(nume,nume_size,pnum);
 	}
-	int getAn() const
+	const int getAn() const
 	{
 		return an_nastere;
 	}
@@ -102,13 +47,23 @@ public:
 	{
 		an_nastere = (an >= 0) ? an : 0;
 	}
-	char getSex() const
+	const char getSex() const
 	{
 		return sex;
 	}
 	void setSex(char s)
 	{
 		sex = (s == 'M' || s == 'F') ? s : 'F';
+	}
+	void operator=(const Persoana& pers)
+	{
+		setNume(pers.nume);
+		setAn(pers.an_nastere);
+		setSex(pers.sex);
+	}
+	const bool operator ==(const Persoana& pers)
+	{
+		return (strcmp(nume, pers.nume)== 0) && (sex == pers.sex && an_nastere == pers.an_nastere);
 	}
 	friend ostream& operator<<(ostream& out ,const Persoana& p)
 	{
@@ -159,11 +114,35 @@ public:
 		for (int i = 0; i < max_size; ++i)
 			persoane[i] = nullptr;
 	}
+	Baza_de_date(const Baza_de_date& baza)
+	{
+		max_size = baza.max_size;
+		nr_pers = baza.nr_pers;
+		persoane = new Persoana * [max_size];
+		for (int i = 0; i < nr_pers; ++i)
+			persoane[i] = new Persoana(*baza.persoane[i]);
+		for (int i = nr_pers; i < max_size; ++i)
+			persoane[i] = nullptr;
+	}
 	~Baza_de_date()
 	{
 		for (int i = 0; i < nr_pers; ++i)
 			delete persoane[i];
 		delete[] persoane;
+	}
+
+	void operator=(const Baza_de_date& baza)
+	{
+		max_size = baza.max_size;
+		nr_pers = baza.nr_pers;
+		for (int i = 0; i < nr_pers; ++i)
+			delete persoane[i];
+		delete[] persoane;
+		persoane = new Persoana * [max_size];
+		for (int i = 0; i < nr_pers; ++i)
+			persoane[i] = new Persoana(*baza.persoane[i]);
+		for (int i = nr_pers; i < max_size; ++i)
+			persoane[i] = nullptr;
 	}
 	void addPers()
 	{
@@ -226,11 +205,11 @@ public:
 				remPers(i);
 		}
 	}
-	void afisSortNume();
-	void afisSortAn();
+	const void afisSortNume();
+	const void afisSortAn();
 };
 
-void Baza_de_date::afisSortNume()
+const void Baza_de_date::afisSortNume()
 {
 	Persoana** to_sort = new Persoana*[nr_pers];
 	to_sort[0] = persoane[0];
@@ -251,7 +230,7 @@ void Baza_de_date::afisSortNume()
 
 }
 
-void Baza_de_date::afisSortAn()
+const void Baza_de_date::afisSortAn()
 {
 	Persoana** to_sort = new Persoana * [nr_pers];
 	to_sort[0] = persoane[0];
