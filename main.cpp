@@ -226,6 +226,7 @@ const void Baza_de_date::afisSortNume()
 	cout << "\nPersoanele sortate alfabetic: \n\n";
 	for (int i = 0; i < nr_pers; ++i)
 		cout << *to_sort[i];
+	delete[] to_sort;
 
 }
 
@@ -247,6 +248,7 @@ const void Baza_de_date::afisSortAn()
 	cout << "\nPersoanele sortate dupa anul nasterii: \n\n";
 	for (int i = 0; i < nr_pers; ++i)
 		cout << *to_sort[i];
+	delete[] to_sort;
 }
 
 class Meniu
