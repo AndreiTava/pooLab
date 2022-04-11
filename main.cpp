@@ -2,8 +2,8 @@
 
 int main()
 {
-    Player me("Dumitran");
+    /*Player me("Dumitran");
     Battle battle(me);
-    battle.play();
+    battle.play();*/
 }
 
