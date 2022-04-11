@@ -1,7 +1,9 @@
-#include <iostream>
-using namespace std;
+#include "Battle.h"
 
-int main() {
-
-	
+int main()
+{
+    Player me("Dumitran");
+    auto battle = Battle::getInstance(me);
+    battle->start();
 }
+
