@@ -16,8 +16,7 @@ private:
 public:
 	static Battle* getInstance(Player&);
 	Battle(const Battle&) = delete;
-	void start();
-	~Battle();
+	void play();
 
 };
 

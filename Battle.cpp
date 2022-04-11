@@ -47,7 +47,7 @@ void Battle::playTurn()
 }
 
 
-void Battle::start()
+void Battle::play()
 {
 	while(!over())
 	{
@@ -57,6 +57,10 @@ void Battle::start()
 		std::cout << "\n~~Victory!~~\n" << player->getName() << " has defeated the enemies!\n";
 	else
 		std::cout << "]\n~~Defeat!~~\n" << player->getName() << " has been defeated!\n";
+
+	for (const auto en : enemies)
+		delete en;
+	enemies.clear();
 	instance = nullptr;
 }
 
