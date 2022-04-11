@@ -31,6 +31,8 @@ bool Battle::over()
 	if (!player->isAlive())
 		return true;
 	bool victory = true;
+	if (std::any_of(enemies.begin(), enemies.end(), [](Entity* e) {return e->isAlive(); }))
+		victory = false;
 	for (const auto enemy : enemies)
 		if (enemy->isAlive())
 			victory = false;

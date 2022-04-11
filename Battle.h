@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include <memory>
+#include <algorithm>
 
 class Battle
 {
@@ -9,7 +10,7 @@ private:
 	static Battle* instance;
 	std::unique_ptr<Player> player;
 	std::vector<Entity*> enemies;
-	Battle(Player&);
+	explicit Battle(Player&);
 	void playTurn();
 	bool over();
 public:
