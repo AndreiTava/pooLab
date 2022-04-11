@@ -47,13 +47,13 @@ void Player::act(Entity& me, std::vector<Entity*>& enemies)
 {
 	if (!(this == &me))
 		return;
-	char command;
-	unsigned int target;
+	char command ='0';
 	std::cout << "Choose action: ";
 	std::cin >> command;
 	switch (command)
 	{
 	case 'A':
+		unsigned int target = 0;
 		std::cout << "Choose target: \n";
 		for (size_t i = 0; i < enemies.size(); ++i)
 			if(enemies[i]->isAlive())
