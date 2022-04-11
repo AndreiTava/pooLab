@@ -45,7 +45,7 @@ void Player::attack(Entity& target)
 
 void Player::act(Entity& me, std::vector<Entity*>& enemies)
 {
-	if (!(&me == &me))
+	if (!(this == &me))
 		return;
 	char command;
 	unsigned int target;

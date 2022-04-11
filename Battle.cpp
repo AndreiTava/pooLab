@@ -12,7 +12,7 @@ Battle::Battle(Player& plr)
 		Entity* newEnemy = new Enemy();
 		enemies.push_back(newEnemy);
 	}
-};
+}
 
 
 Battle* Battle::getInstance(Player& player)

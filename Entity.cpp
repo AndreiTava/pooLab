@@ -6,7 +6,7 @@ Entity::Entity(std::string p_name, const unsigned int p_hp, const unsigned int p
 	MHP(p_hp),
 	ATK(p_atk),
 	DEF(p_def)
-{};
+{}
 
 std::string Entity::getName() const
 {
