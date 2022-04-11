@@ -46,9 +46,9 @@ void Battle::play()
 	{
 		playTurn();
 	}
-	if (player->isAlive());
-	/*std::cout << "\n~~Victory!~~\n" << player->getName() << " has defeated the enemies!\n";*/
-	else;
-		/*std::cout << "]\n~~Defeat!~~\n" << player->getName() << " has been defeated!\n";*/
+	/*if (player->isAlive())
+		std::cout << "\n~~Victory!~~\n" << player->getName() << " has defeated the enemies!\n";
+	else
+		std::cout << "]\n~~Defeat!~~\n" << player->getName() << " has been defeated!\n";*/
 }
 
