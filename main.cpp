@@ -3,7 +3,7 @@
 int main()
 {
     Player me("Dumitran");
-    auto battle = Battle::getInstance(me);
-    battle->play();
+    Battle battle(me);
+    battle.play();
 }
 

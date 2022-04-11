@@ -1,8 +1,6 @@
 #include "Battle.h"
 
 
-Battle* Battle::instance = nullptr;
-
 Battle::Battle(Player& plr)
 	:
 	player(&plr)
@@ -16,22 +14,9 @@ Battle::Battle(Player& plr)
 
 Battle::~Battle()
 {
-	for (const auto en : enemies)
+	for (const auto& en : enemies)
 		delete en;
 	enemies.clear();
-}
-
-
-
-Battle* Battle::getInstance(Player& player)
-{
-	if (instance)
-		return instance;
-	else
-	{
-		instance = new Battle(player);
-		return instance;
-	}
 }
 
 bool Battle::over()
@@ -65,7 +50,5 @@ void Battle::play()
 		std::cout << "\n~~Victory!~~\n" << player->getName() << " has defeated the enemies!\n";
 	else
 		std::cout << "]\n~~Defeat!~~\n" << player->getName() << " has been defeated!\n";
-	delete instance;
-	instance = nullptr;
 }
 
