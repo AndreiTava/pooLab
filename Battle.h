@@ -7,7 +7,7 @@
 class Battle
 {
 private:
-	std::shared_ptr<Player> player;
+	Player* player;
 	std::vector<Entity*> enemies;
 	void playTurn();
 	bool over();
