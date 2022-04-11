@@ -55,7 +55,7 @@ void Player::act(Entity& me, std::vector<Entity*>& enemies)
 	{
 	case 'A':
 		std::cout << "Choose target: \n";
-		for (int i = 0; i < enemies.size(); ++i)
+		for (size_t i = 0; i < enemies.size(); ++i)
 			if(enemies[i]->isAlive())
 				std::cout<<i<<": "<<*enemies[i]<<"\n";
 		std::cout << "Target:";

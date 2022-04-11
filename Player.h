@@ -10,7 +10,7 @@ private:
     void describe(std::ostream&) const override;
 public:
     Player(std::string name);
-    void act(Entity&, std::vector<Entity*>&);
+    void act(Entity&, std::vector<Entity*>&) override;
     void checkLvlUp();
     void gainExp(unsigned int);
 };
