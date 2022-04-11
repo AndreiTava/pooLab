@@ -12,7 +12,7 @@ protected:
 public:
 	virtual ~Entity() = default;
 	virtual void act(Entity&, std::vector<Entity*>&) = 0;
-	virtual void takeDamage(int = 0);
+	virtual void takeDamage(int);
 	virtual void die(Entity&);
 	bool isAlive() const;
 	std::string getName() const;
