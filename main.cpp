@@ -4,6 +4,6 @@ int main()
 {
     Player me("Dumitran");
     auto battle = Battle::getInstance(me);
-    battle->start();
+    battle->play();
 }
 
