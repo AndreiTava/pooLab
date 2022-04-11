@@ -7,6 +7,7 @@ int main()
     battle.play();*/
     Entity* iWantToDie = new Enemy();
     std::cout << *iWantToDie << "\n";
+    iWantToDie->takeDamage(10);
     delete iWantToDie;
 }
 
