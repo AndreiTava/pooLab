@@ -7,11 +7,11 @@ Enemy::Enemy(std::string p_name, const unsigned int p_hp, const unsigned int p_a
 	EXP(p_exp)
 {}
 
-void Enemy::describe(std::ostream& out) const
-{
-	out << "a";
-	/*out << this->name << ":\nMaxHealth: " << this->MHP<< " Attack: " <<this->ATK<< " Defence: " << this->DEF<< "\nNo Special Abilities. \n";*/
-}
+//void Enemy::describe(std::ostream& out) const
+//{
+//	out << "a";
+//	/*out << this->name << ":\nMaxHealth: " << this->MHP<< " Attack: " <<this->ATK<< " Defence: " << this->DEF<< "\nNo Special Abilities. \n";*/
+//}
 
 void Enemy::die(Entity& culprit)
 {

@@ -5,10 +5,10 @@ Player::Player(std::string name)
 Entity(std::move(name),100,10,10)
 {}
 
-void Player::describe(std::ostream& out) const
-{
-	out << "p";
-}
+//void Player::describe(std::ostream& out) const
+//{
+//	out << "p";
+//}
 
 void Player::levelUp()
 {

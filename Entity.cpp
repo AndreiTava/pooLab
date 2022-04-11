@@ -8,10 +8,10 @@ Entity::Entity(std::string p_name, const unsigned int p_hp, const unsigned int p
 	DEF(p_def)
 {}
 
-std::string Entity::getName() const
-{
-	return name;
-}
+//std::string Entity::getName() const
+//{
+//	return name;
+//}
 
 
 bool Entity::isAlive() const
@@ -34,11 +34,11 @@ void Entity::takeDamage(const int dmg)
 	HP = std::min(HP, MHP);
 }
 
-std::ostream& operator<<(std::ostream& out, const Entity& ent)
-{
-	ent.describe(out);
-	return out;
-}
+//std::ostream& operator<<(std::ostream& out, const Entity& ent)
+//{
+//	ent.describe(out);
+//	return out;
+//}
 
 
 
