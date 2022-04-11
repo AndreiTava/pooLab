@@ -32,7 +32,7 @@ void Enemy::act(Entity& player, std::vector<Entity*>& enemies)
 }
 Entity& Enemy::decideTarget(Entity& player, const std::vector<Entity*>& enemies)
 {
-	if (enemies.size() < 0)
+	if (enemies.empty())
 		return player;
 	return player;
 }
