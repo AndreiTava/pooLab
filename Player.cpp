@@ -31,13 +31,13 @@ void Player::checkLvlUp()
 void Player::gainExp(unsigned int exp)
 {
 	this->EXP += exp;
-	std::cout << this->name << " has gained " << exp << " exp\n";
+	/*std::cout << this->name << " has gained " << exp << " exp\n";*/
 	this->checkLvlUp();
 }
 
 void Player::attack(Entity& target)
 {
-	std::cout <<"(>>)\n" << this->name << " attacks " << target.getName() << "\n";
+	/*std::cout <<"(>>)\n" << this->name << " attacks " << target.getName() << "\n";*/
 	target.takeDamage(this->ATK);
 	if (!target.isAlive())
 		target.die(*this);

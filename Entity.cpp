@@ -21,14 +21,16 @@ bool Entity::isAlive() const
 
 void Entity::die(Entity& culprit)
 {
-	std::cout << name << " has been defeated by "<<culprit.getName()<<"\n";
+	if (&culprit != this)
+		return;
+	/*std::cout << name << " has been defeated by "<<culprit.getName()<<"\n";*/
 }
 
 void Entity::takeDamage(const int dmg)
 {
 	const int dmg_took = dmg * static_cast<int>(1.f - static_cast<float>(this->DEF) / 100);
 	HP -= dmg_took;
-	std::cout << name << " took " << dmg_took << " damage \n";
+	/*std::cout << name << " took " << dmg_took << " damage \n";*/
 	HP = std::min(HP, MHP);
 }
 
