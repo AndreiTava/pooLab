@@ -1,9 +1,8 @@
-#include "Battle.h"
+
+#include <iostream>
 
 int main()
 {
-    Player me("Dumitran");
-    Battle battle(me);
-    battle.play();
+	std::cout << " Test ";
 }
 
