@@ -14,6 +14,14 @@ Battle::Battle(Player& plr)
 	}
 }
 
+Battle::~Battle()
+{
+	for (const auto en : enemies)
+		delete en;
+	enemies.clear();
+}
+
+
 
 Battle* Battle::getInstance(Player& player)
 {
@@ -57,10 +65,7 @@ void Battle::play()
 		std::cout << "\n~~Victory!~~\n" << player->getName() << " has defeated the enemies!\n";
 	else
 		std::cout << "]\n~~Defeat!~~\n" << player->getName() << " has been defeated!\n";
-
-	for (const auto en : enemies)
-		delete en;
-	enemies.clear();
+	delete instance;
 	instance = nullptr;
 }
 
