@@ -95,6 +95,7 @@ void Player::act(Entity& me, std::vector<Entity*>& enemies)
 	std::string input ="0";
 	std::cout<<*this<< "A - Basic Attack      S - Special Attack\nI - Item\n";
 	std::getline(std::cin,input);
+	std::cout << "--------DEBUG:" <<input<<"\n";
 	try {
 		auto command = resolveCommand(input);
 		unsigned int target = 0;
