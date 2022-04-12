@@ -12,11 +12,11 @@ void Player::describe(std::ostream& out) const
 
 Player::commands Player::resolveCommand(const std::string& command)
 {
-	if (command == "A")
+	if (command[0] == 'A')
 		return commands::attack;
-	if (command == "S")
+	if (command[0] == 'S')
 		return commands::special;
-	if (command == "I")
+	if (command[0] == 'I')
 		return commands::item;
 	throw InputException();
 }
@@ -95,7 +95,6 @@ void Player::act(Entity& me, std::vector<Entity*>& enemies)
 	std::string input ="0";
 	std::cout<<*this<< "A - Basic Attack      S - Special Attack\nI - Item\n";
 	std::getline(std::cin,input);
-	std::cout << "--------DEBUG:" <<input<<"\n";
 	try {
 		auto command = resolveCommand(input);
 		unsigned int target = 0;
