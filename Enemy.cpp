@@ -10,7 +10,7 @@ Enemy::Enemy(std::string p_name, const unsigned int p_hp, const unsigned int p_a
 Enemy::Enemy(const Enemy& rhs) :
 	Entity(rhs),
 	EXP(rhs.EXP)
-{};
+{}
 void Enemy::operator=(const Enemy& rhs)
 {
 	this->Entity::operator=(rhs);
