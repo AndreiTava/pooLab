@@ -79,7 +79,7 @@ void Player::special(std::vector<Entity*>& targets)
 }
 void Player::item()
 {
-	if (this->POT <= 0)
+	if (this->POT == 0)
 		throw MechanicException();
 	std::cout << "($)\n" << name << " uses a potion and recovers 25HP!\n";
 	this->HP = std::min(this->HP + 20, this->MHP);

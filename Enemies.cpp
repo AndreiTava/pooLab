@@ -35,7 +35,7 @@ void Treant::interact(Entity& target)
 Slime::Slime()
 	:
 	Enemy("Slime", 15, 5, 0, 10)
-{};
+{}
 
 void Slime::act(Entity& player , std::vector<Entity*>& enemies)
 {
