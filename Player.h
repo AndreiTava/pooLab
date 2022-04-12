@@ -10,8 +10,7 @@ private:
     {
         attack,
         special,
-        item,
-        run
+        item
     };
     unsigned int EP=100, MEP=100, POT=5, LVL = 1, EXP = 0;
     void levelUp();
