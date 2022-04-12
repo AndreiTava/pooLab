@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+
 class Entity
 {
 protected:
@@ -9,8 +10,7 @@ protected:
 	int HP,MHP,ATK,DEF;
 	Entity(std::string,unsigned int, unsigned int,unsigned);
 	virtual void describe(std::ostream&) const = 0;
-	Entity(const Entity&);
-	void operator=(const Entity&);
+	Entity(const Entity&) = default;
 public:
 	virtual ~Entity() = default;
 	virtual void act(Entity&, std::vector<Entity*>&) = 0;

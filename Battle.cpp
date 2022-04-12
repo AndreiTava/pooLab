@@ -7,7 +7,7 @@ Battle::Battle(Player& plr)
 {
 	for (int i = 0; i < 3; ++i)
 	{
-		Entity* newEnemy = new Enemy();
+		Entity* newEnemy = new Slime();
 		enemies.push_back(newEnemy);
 	}
 }
@@ -33,6 +33,7 @@ bool Battle::over()
 
 void Battle::playTurn()
 {
+	std::cout << "\n~New turn~\n";
 	player->act(*player, enemies);
 	for (auto enemy : enemies)
 		if (enemy->isAlive())
@@ -42,6 +43,7 @@ void Battle::playTurn()
 
 void Battle::play()
 {
+	std::cout << "~~A battle has started!~~\n";
 	while(!over())
 	{
 		playTurn();
@@ -49,6 +51,6 @@ void Battle::play()
 	if (player->isAlive())
 		std::cout << "\n~~Victory!~~\n" << player->getName() << " has defeated the enemies!\n";
 	else
-		std::cout << "]\n~~Defeat!~~\n" << player->getName() << " has been defeated!\n";
+		std::cout << "\n~~Defeat!~~\n" << player->getName() << " has been defeated!\n";
 }
 

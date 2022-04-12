@@ -2,18 +2,24 @@
 
 Player::Player(std::string name)
 	:
-Entity(std::move(name),100,10,10)
+Entity(std::move(name),100,10,5)
 {}
 
 void Player::describe(std::ostream& out) const
 {
-	out << this->name << " LVL " << this->LVL << " adventurer: \nMaxHealth: " << this->MHP << " Attack: " << this->ATK << " Defence: " << this->DEF << "\n";
+	out << this->name << " LVL " << this->LVL << " adventurer: \nMaxHealth: " << this->MHP <<" MaxEnergy: "<<this->MEP << " Attack: " << this->ATK << " Defence: " << this->DEF << "\n";
 }
 
 Player::commands Player::resolveCommand(std::string command)
 {
 	if (command == "A")
 		return commands::attack;
+	if (command == "S")
+		return commands::special;
+	if (command == "I")
+		return commands::item;
+	if (command == "R")
+		return commands::run;
 	throw InputException();
 }
 
@@ -22,6 +28,7 @@ void Player::levelUp()
 {
 	++(this->LVL);
 	this->HP = this->MHP+=50;
+	this->EP = this->MEP += 50;
 	this->ATK += 10;
 	this->DEF += 5;
 	
@@ -55,10 +62,10 @@ void Player::attack(Entity& target)
 
 void Player::act(Entity& me, std::vector<Entity*>& enemies)
 {
-	if (&me == nullptr)
+	if (&me != this)
 		return;
 	std::string input ="0";
-	std::cout << "A - Attack Enemy      S - Special Attack\n";
+	std::cout <<this->name<<": "<<this->HP<<"/"<<this->MHP<<"HP "<<this->EP<<"/"<<this->MEP<<"EP "<<this->POT << " Potions\n" << "A - Basic Attack      S - Special Attack\nI - Item              R - Run\n";
 	std::getline(std::cin,input);
 	try {
 		auto command = resolveCommand(input);
@@ -71,25 +78,27 @@ void Player::act(Entity& me, std::vector<Entity*>& enemies)
 				if (enemies[i]->isAlive())
 					std::cout << i << ": " << *enemies[i] << "\n";
 			std::cout << "Target:";
-			std::cin >> target;
+			std::getline(std::cin, input);
+			target = std::stoi(input, nullptr, 10);
 				if (target >= enemies.size())
 					throw TargetException();
 				this->attack(*enemies[target]);
 			break;
 		}
 	}
+	catch(std::invalid_argument&)
+	{
+		std::cout << "(E) Input is not a number!\n";
+		this->act(me, enemies);
+	}
 	catch (TargetException&)
 	{
-		std::cout << " Selected enemy is invalid.";
-		std::cin.clear();
-		std::cin.ignore(INT_MAX, '\n');
+		std::cout << "(E) Selected enemy is invalid\n";
 		this->act(me, enemies);
 	}
 	catch(InputException&)
 	{
-		std::cout << "Invalid command, try again\n";
-		std::cin.clear();
-		std::cin.ignore(INT_MAX, '\n');
+		std::cout << "(E) Invalid command, try again\n";
 		this->act(me, enemies);
 	}
 }

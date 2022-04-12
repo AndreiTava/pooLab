@@ -13,7 +13,7 @@ private:
         item,
         run
     };
-    unsigned int LVL = 1, EXP = 0;
+    unsigned int EP=100, MEP=100, POT=5, LVL = 1, EXP = 0;
     void levelUp();
     void attack(Entity& target);
     void describe(std::ostream&) const override;

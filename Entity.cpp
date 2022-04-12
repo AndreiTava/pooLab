@@ -1,4 +1,5 @@
 #include "Entity.h"
+
 Entity::Entity(std::string p_name, const unsigned int p_hp, const unsigned int p_atk, const unsigned int p_def)
 	:
 	name(std::move(p_name)),
