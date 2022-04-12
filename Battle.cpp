@@ -5,11 +5,15 @@ Battle::Battle(Player& plr)
 	:
 	player(&plr)
 {
-	for (int i = 0; i < 3; ++i)
-	{
-		Entity* newEnemy = new Slime();
-		enemies.push_back(newEnemy);
-	}
+	
+	Entity* newEnemy = new Goblin();
+	enemies.push_back(newEnemy);
+	newEnemy = new Treant();
+	enemies.push_back(newEnemy);
+	newEnemy = new Slime();
+	enemies.push_back(newEnemy);
+	newEnemy = new Mimic();
+	enemies.push_back(newEnemy);
 }
 
 Battle::~Battle()
@@ -35,9 +39,9 @@ void Battle::playTurn()
 {
 	std::cout << "\n~New turn~\n";
 	player->act(*player, enemies);
-	for (auto enemy : enemies)
-		if (enemy->isAlive())
-			enemy->act(*player, enemies);
+	for (size_t i=0;i<enemies.size();++i)
+		if (enemies[i]->isAlive())
+			enemies[i]->act(*player, enemies);
 }
 
 

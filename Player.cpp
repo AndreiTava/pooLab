@@ -2,12 +2,12 @@
 
 Player::Player(std::string name)
 	:
-Entity(std::move(name),100,10,5)
+Entity(std::move(name),100,10,10)
 {}
 
 void Player::describe(std::ostream& out) const
 {
-	out << this->name << " LVL " << this->LVL << " adventurer: \nMaxHealth: " << this->MHP <<" MaxEnergy: "<<this->MEP << " Attack: " << this->ATK << " Defence: " << this->DEF << "\n";
+	out << this->name << ": " << this->ATK << " ATK " << this->DEF << " DEF \n" << this->HP << "/" << this->MHP << "HP " << this->EP << "/" << this->MEP << "EP " << this->POT << " Potions\n";
 }
 
 Player::commands Player::resolveCommand(std::string command)
@@ -18,17 +18,18 @@ Player::commands Player::resolveCommand(std::string command)
 		return commands::special;
 	if (command == "I")
 		return commands::item;
-	if (command == "R")
-		return commands::run;
 	throw InputException();
 }
 
 
 void Player::levelUp()
 {
+	std::cout<<"\n~~" << name << " has leveled up!~~\nHP and EP fully restored!\nAll stats increased!\n\n";
 	++(this->LVL);
-	this->HP = this->MHP+=50;
-	this->EP = this->MEP += 50;
+	this->MHP += 50;
+	this->HP = this->MHP;
+	this->MEP += 50;
+	this->EP = this->MEP;
 	this->ATK += 10;
 	this->DEF += 5;
 	
@@ -59,13 +60,40 @@ void Player::attack(Entity& target)
 	if (!target.isAlive())
 		target.die(*this);
 }
+void Player::special(std::vector<Entity*>& targets)
+{
+	if (this->EP < 25)
+		throw MechanicException();
+	std::cout << "(@)\n" << this->name << " uses Whirlwind(-25EP) and hits all enemies!\n";
+	this->EP -= 25;
+	for (auto target : targets)
+	{
+		if (target->isAlive())
+		{
+			target->takeDamage(this->ATK);
+			if (!target->isAlive())
+				target->die(*this);
+		}
+
+	}
+}
+void Player::item()
+{
+	if (this->POT <= 0)
+		throw MechanicException();
+	std::cout << "($)\n" << name << " uses a potion and recovers 25HP!\n";
+	this->HP = std::min(this->HP + 20, this->MHP);
+	--this->POT;
+}
+
+
 
 void Player::act(Entity& me, std::vector<Entity*>& enemies)
 {
 	if (&me != this)
 		return;
 	std::string input ="0";
-	std::cout <<this->name<<": "<<this->HP<<"/"<<this->MHP<<"HP "<<this->EP<<"/"<<this->MEP<<"EP "<<this->POT << " Potions\n" << "A - Basic Attack      S - Special Attack\nI - Item              R - Run\n";
+	std::cout<<*this<< "A - Basic Attack      S - Special Attack\nI - Item\n";
 	std::getline(std::cin,input);
 	try {
 		auto command = resolveCommand(input);
@@ -84,21 +112,32 @@ void Player::act(Entity& me, std::vector<Entity*>& enemies)
 					throw TargetException();
 				this->attack(*enemies[target]);
 			break;
+		case commands::special:
+			this->special(enemies);
+			break;
+		case commands::item:
+			this->item();
+			break;
 		}
 	}
 	catch(std::invalid_argument&)
 	{
-		std::cout << "(E) Input is not a number!\n";
+		std::cout << "(E)\nInput is not a number!\n";
+		this->act(me, enemies);
+	}
+	catch(MechanicException&)
+	{
+		std::cout << "(E)\nInsufficient resources to do action\n";
 		this->act(me, enemies);
 	}
 	catch (TargetException&)
 	{
-		std::cout << "(E) Selected enemy is invalid\n";
+		std::cout << "(E)\nSelected enemy is invalid\n";
 		this->act(me, enemies);
 	}
 	catch(InputException&)
 	{
-		std::cout << "(E) Invalid command, try again\n";
+		std::cout << "(E)\nInvalid command, try again\n";
 		this->act(me, enemies);
 	}
 }

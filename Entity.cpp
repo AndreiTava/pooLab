@@ -9,6 +9,24 @@ Entity::Entity(std::string p_name, const unsigned int p_hp, const unsigned int p
 	DEF(p_def)
 {}
 
+Entity::Entity(const Entity& rhs)
+	:
+	name(rhs.name),
+	HP(rhs.HP),
+	MHP(rhs.MHP),
+	ATK(rhs.ATK),
+	DEF(rhs.DEF)
+{}
+void Entity::operator=(const Entity& rhs)
+{
+	this->HP = rhs.MHP;
+	this->MHP = rhs.MHP;
+	this->ATK = rhs.ATK;
+	this->DEF = rhs.DEF;
+}
+
+
+
 std::string Entity::getName() const
 {
 	return name;
@@ -29,9 +47,12 @@ void Entity::die(Entity& culprit)
 
 void Entity::takeDamage(const int dmg)
 {
-	const int dmg_took = dmg * static_cast<int>(1.f - static_cast<float>(this->DEF) / 100);
+	const int dmg_took = static_cast<int>(static_cast<float>(dmg) * 1.f - static_cast<float>(this->DEF) / 100.f);
 	HP -= dmg_took;
-	std::cout << name << " took " << dmg_took << " damage \n";
+	if(dmg_took >=0)
+		std::cout << name << " took " << dmg_took << " damage \n";
+	else
+		std::cout << name << " was healed for " << -dmg_took << " HP \n";
 	HP = std::min(HP, MHP);
 }
 

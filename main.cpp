@@ -1,8 +1,9 @@
 #include "Battle.h"
-
+#include <time.h>
 int main()
 {
-    Player me("Dumitran");
+    srand(clock());
+    Player me("Player");
     Battle battle(me);
     battle.play();
 }
