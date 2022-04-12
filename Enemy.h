@@ -17,7 +17,7 @@ protected:
 	void die(Entity& culprit) override;
 	virtual void interact(Entity&);
 	void describe(std::ostream&) const override;
-	static types resolveType(std::string);
+	static types resolveType(const std::string&);
 public:
 	~Enemy() override = default;
 	Enemy(std::string = "Generic Enemy", unsigned int = 10, unsigned int = 10, unsigned int = 0, unsigned int = 0);

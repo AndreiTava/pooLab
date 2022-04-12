@@ -2,19 +2,19 @@
 
 const char* InputException::what() const noexcept
 {
-	return "Invalid User Input";
+	return "(E)\nInvalid command, try again\n";
 }
 const char* TargetException::what() const noexcept
 {
-	return "Invalid Target";
+	return "(E)\nSelected enemy is invalid\n";
 }
 const char* MechanicException::what() const noexcept
 {
-	return "Action Impossible";
+	return "(E)\nInsufficient resources to do action\n";
 }
 const char* EnemyException::what() const noexcept
 {
-	return "Nonexistent enemy type";
+	return "(E)\nInvalid Enemy Type... This should appear..ever\n";
 }
 
 

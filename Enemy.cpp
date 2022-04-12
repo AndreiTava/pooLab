@@ -37,7 +37,7 @@ void Enemy::die(Entity& culprit)
 	}
 }
 
-Enemy::types Enemy::resolveType(std::string name)
+Enemy::types Enemy::resolveType(const std::string& name)
 {
 	if (name == "Goblin")
 		return types::goblin;

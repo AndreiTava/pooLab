@@ -10,7 +10,7 @@ void Player::describe(std::ostream& out) const
 	out << this->name << ": " << this->ATK << " ATK " << this->DEF << " DEF \n" << this->HP << "/" << this->MHP << "HP " << this->EP << "/" << this->MEP << "EP " << this->POT << " Potions\n";
 }
 
-Player::commands Player::resolveCommand(std::string command)
+Player::commands Player::resolveCommand(const std::string& command)
 {
 	if (command == "A")
 		return commands::attack;
@@ -60,7 +60,7 @@ void Player::attack(Entity& target)
 	if (!target.isAlive())
 		target.die(*this);
 }
-void Player::special(std::vector<Entity*>& targets)
+void Player::special(const std::vector<Entity*>& targets)
 {
 	if (this->EP < 25)
 		throw MechanicException();
@@ -125,19 +125,19 @@ void Player::act(Entity& me, std::vector<Entity*>& enemies)
 		std::cout << "(E)\nInput is not a number!\n";
 		this->act(me, enemies);
 	}
-	catch(MechanicException&)
+	catch(MechanicException& e)
 	{
-		std::cout << "(E)\nInsufficient resources to do action\n";
+		std::cout << e.what();
 		this->act(me, enemies);
 	}
-	catch (TargetException&)
+	catch (TargetException& e)
 	{
-		std::cout << "(E)\nSelected enemy is invalid\n";
+		std::cout << e.what();
 		this->act(me, enemies);
 	}
-	catch(InputException&)
+	catch(InputException& e)
 	{
-		std::cout << "(E)\nInvalid command, try again\n";
+		std::cout << e.what();
 		this->act(me, enemies);
 	}
 }

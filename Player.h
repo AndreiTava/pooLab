@@ -15,10 +15,10 @@ private:
     unsigned int EP=100, MEP=100, POT=5, LVL = 1, EXP = 0;
     void levelUp();
     void attack(Entity& target);
-    void special(std::vector<Entity*>&);
+    void special(const std::vector<Entity*>&);
     void item();
     void describe(std::ostream&) const override;
-    static commands resolveCommand(std::string);
+    static commands resolveCommand(const std::string&);
 public:
     explicit Player(std::string name);
     ~Player() override = default;

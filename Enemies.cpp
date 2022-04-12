@@ -104,9 +104,9 @@ void Mimic::act(Entity& player, std::vector<Entity*>& enemies)
 			enemies[self] = converted;
 
 		}
-		catch (EnemyException&)
+		catch (EnemyException& e)
 		{
-			std::cout << "(E)\nInvalid Enemy Type... This should appear\n";
+			std::cout << e.what();
 		}
 
 	}
