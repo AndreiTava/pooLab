@@ -7,17 +7,16 @@ Enemy::Enemy(std::string p_name, const unsigned int p_hp, const unsigned int p_a
 	EXP(p_exp)
 {}
 
-//void Enemy::describe(std::ostream& out) const
-//{
-//	out << "a";
-//	/*out << this->name << ":\nMaxHealth: " << this->MHP<< " Attack: " <<this->ATK<< " Defence: " << this->DEF<< "\nNo Special Abilities. \n";*/
-//}
+void Enemy::describe(std::ostream& out) const
+{
+	out << this->name << ":\nMaxHealth: " << this->MHP<< " Attack: " <<this->ATK<< " Defence: " << this->DEF<< "\nNo Special Abilities. \n";
+}
 
 void Enemy::die(Entity& culprit)
 {
 	try {
-		auto player = dynamic_cast<Player&>(culprit);
-		/*std::cout<<"(!)\n" << player.getName() << "'s attack has vanquished the " << this->name << "\n";*/
+		auto player =  dynamic_cast<Player&>(culprit);
+		std::cout<<"(!)\n" << player.getName() << "'s attack has vanquished the " << this->name << "\n";
 		player.gainExp(this->EXP);
 	}
 	catch (std::bad_cast&)
@@ -39,7 +38,7 @@ Entity& Enemy::decideTarget(Entity& player, const std::vector<Entity*>& enemies)
 }
 void Enemy::interact(Entity& target)
 {
-	/*std::cout <<"(<<)\n" << this->name << " attacks " << target.getName() << "\n";*/
+	std::cout <<"(<<)\n" << this->name << " attacks " << target.getName() << "\n";
 	target.takeDamage(this->ATK);
 	if (!target.isAlive())
 		target.die(*this);
