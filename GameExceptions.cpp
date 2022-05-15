@@ -14,7 +14,7 @@ const char* MechanicException::what() const noexcept
 }
 const char* EnemyException::what() const noexcept
 {
-	return "(E)\nInvalid Enemy Type... This should appear..ever\n";
+	return "(E)\nInvalid Enemy Type... This should not appear..ever\n";
 }
 
 

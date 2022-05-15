@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include "GameExceptions.h"
+#include "Weapons.h"
 
 class Player :
     public Entity
@@ -20,7 +21,7 @@ private:
     void describe(std::ostream&) const override;
     static commands resolveCommand(const std::string&);
 public:
-    explicit Player(std::string name);
+    explicit Player(std::string,LegendaryWeapon&);
     ~Player() override = default;
     Player(const Player&) = delete;
     void operator=(const Player&) = delete;

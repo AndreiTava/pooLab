@@ -1,8 +1,9 @@
 #include "Player.h"
 
-Player::Player(std::string name)
+Player::Player(std::string name,LegendaryWeapon& wpn)
 	:
-Entity(std::move(name),100,10,10)
+Entity(std::move(name),100,10,10),
+weapon(wpn)
 {}
 
 void Player::describe(std::ostream& out) const

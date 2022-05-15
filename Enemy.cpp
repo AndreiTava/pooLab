@@ -55,12 +55,7 @@ void Enemy::act(Entity& player, std::vector<Entity*>& enemies)
 {
 	this->interact(this->decideTarget(player, enemies));
 }
-Entity& Enemy::decideTarget(Entity& player, const std::vector<Entity*>& enemies)
-{
-	if (enemies.empty())
-		return player;
-	return player;
-}
+
 void Enemy::interact(Entity& target)
 {
 	std::cout <<"(<<)\n" << this->name << " attacks " << target.getName() << "\n";

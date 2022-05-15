@@ -1,21 +1,16 @@
 #include "Battle.h"
-
+#include "Human.h"
 
 Battle::Battle(Player& plr)
 	:
 	player(&plr)
 {
-	
-	Entity* newEnemy = new Goblin();
+
+	Entity* newEnemy = new Human<Sword>();
 	enemies.push_back(newEnemy);
-	newEnemy = new Treant();
-	enemies.push_back(newEnemy);
-	newEnemy = new Slime();
-	enemies.push_back(newEnemy);
-	newEnemy = new Mimic();
+	newEnemy = new Human<Staff>();
 	enemies.push_back(newEnemy);
 }
-
 Battle::~Battle()
 {
 	for (const auto& en : enemies)

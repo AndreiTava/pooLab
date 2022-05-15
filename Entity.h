@@ -8,7 +8,7 @@ class Entity
 protected:
 	const std::string name;
 	int HP,MHP,ATK,DEF;
-	Entity(std::string,unsigned int, unsigned int,unsigned);
+	Entity(std::string,unsigned int, unsigned int,unsigned int);
 	virtual void describe(std::ostream&) const = 0;
 	Entity(const Entity&);
 	void operator=(const Entity&);
