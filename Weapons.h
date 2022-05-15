@@ -53,19 +53,19 @@ public:
 class VampiricEdge : public LegendaryDecorator
 {
 public:
-	VampiricEdge(LegendaryWeapon*);
+	explicit VampiricEdge(LegendaryWeapon*);
 	unsigned int use(unsigned int, Entity&) override;
 };
 class BloodLust : public LegendaryDecorator
 {
 public:
-	BloodLust(LegendaryWeapon*);
+	explicit BloodLust(LegendaryWeapon*);
 	unsigned int use(unsigned int, Entity&) override;
 };
 class ReapersLuck : public LegendaryDecorator
 {
 public:
-	ReapersLuck(LegendaryWeapon*);
+	explicit ReapersLuck(LegendaryWeapon*);
 	unsigned int use(unsigned int, Entity&) override;
 };
 
