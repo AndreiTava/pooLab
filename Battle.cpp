@@ -3,9 +3,13 @@ Battle::Battle(Player& plr)
 	:
 	player(&plr)
 {
-	Entity* newEnemy = new Human<Sword>;
+	Entity* newEnemy = new Goblin;
 	enemies.push_back(newEnemy);
-	newEnemy = new Human<Staff>;
+	newEnemy = new Treant;
+	enemies.push_back(newEnemy);
+	newEnemy = new Slime;
+	enemies.push_back(newEnemy);
+	newEnemy = new Mimic;
 	enemies.push_back(newEnemy);
 }
 Battle::~Battle()

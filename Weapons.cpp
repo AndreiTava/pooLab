@@ -11,7 +11,7 @@ void Sword::use(unsigned int base_atk, Entity& target)
 
 void Staff::use(unsigned int base_atk, Entity& target)
 {
-	target.takeDamage(-1*(base_atk));
+	target.takeDamage(-1*static_cast<int>(base_atk));
 }
 
 std::string Sword::getName()

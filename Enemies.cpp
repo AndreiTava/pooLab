@@ -12,20 +12,14 @@ void Goblin::describe(std::ostream& out) const
 }
 Treant::Treant()
 	:
-	Enemy("Treant", 30, 5, 20, 20)
+	Enemy("Treant", 30, 5, 20, 20, new healerStrategy)
 	{}
 void Treant::describe(std::ostream& out) const
 {
 	this->Enemy::describe(out);
 	out << "Heals others for 5HP\n";
 }
-Entity& Treant::decideTarget(Entity& player, const std::vector<Entity*>& enemies)
-{
-	if (enemies.empty())
-		return player;
-	const size_t ind = rand() % (enemies.size() - 1);
-	return *enemies[ind];
-}
+
 void Treant::interact(Entity& target)
 {
 	std::cout << "(@)\n" << this->name << " heals " << target.getName() <<"\n";

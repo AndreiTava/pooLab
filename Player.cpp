@@ -2,7 +2,7 @@
 
 Player::Player(std::string name)
 	:
-Entity(std::move(name),100,10,10)
+Entity(std::move(name),200,25,15)
 {}
 
 void Player::describe(std::ostream& out) const

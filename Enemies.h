@@ -13,7 +13,6 @@ class Treant : public Enemy
 {
 private:
 	void describe(std::ostream&) const override;
-	Entity& decideTarget(Entity&, const std::vector<Entity*>&) override;
 	void interact(Entity&) override;
 public:
 	Treant();

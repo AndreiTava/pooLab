@@ -19,7 +19,6 @@ class Human<Staff> : public Enemy
 {
 	Staff weapon;
 	void describe(std::ostream&) const override;
-	Entity& decideTarget(Entity&, const std::vector<Entity*>&) override;
 	void interact(Entity&) override;
 public:
 	Human();
@@ -55,13 +54,7 @@ inline Human<Staff>::Human()
 {}
 
 
-inline Entity& Human<Staff>::decideTarget(Entity& player, const std::vector<Entity*>& enemies)
-{
-	if (enemies.empty())
-		return player;
-	const size_t ind = rand() % (enemies.size() - 1);
-	return *enemies[ind];
-}
+
 
 inline void Human<Staff>::describe(std::ostream& out) const
 {

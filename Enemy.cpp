@@ -1,17 +1,20 @@
 #include "Enemy.h"
-Enemy::Enemy(std::string p_name, const unsigned int p_hp, const unsigned int p_atk, const unsigned int p_def, const unsigned int p_exp)
+Enemy::Enemy(std::string p_name, const unsigned int p_hp, const unsigned int p_atk, const unsigned int p_def, const unsigned int p_exp,decideStrategy* p_strategy)
 	:
 	Entity(std::move(p_name), p_hp, p_atk, p_def),
-	EXP(p_exp)
+	EXP(p_exp),
+	strategy(p_strategy)
 {}
 Enemy::Enemy(const Enemy& rhs) :
 	Entity(rhs),
-	EXP(rhs.EXP)
+	EXP(rhs.EXP),
+	strategy(rhs.strategy->clone())
 {}
 void Enemy::operator=(const Enemy& rhs)
 {
 	this->Entity::operator=(rhs);
 	this->EXP = rhs.EXP;
+	this->strategy.reset(rhs.strategy->clone());
 }
 void Enemy::describe(std::ostream& out) const
 {
@@ -43,13 +46,7 @@ Enemy::types Enemy::resolveType(const std::string& name)
 }
 void Enemy::act(Entity& player, std::vector<Entity*>& enemies)
 {
-	this->interact(this->decideTarget(player, enemies));
-}
-Entity& Enemy::decideTarget(Entity& player, const std::vector<Entity*>& enemies)
-{
-	if (enemies.empty())
-		return player;
-	return player;
+	this->interact(strategy->decideTarget(player, enemies));
 }
 
 void Enemy::interact(Entity& target)
