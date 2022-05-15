@@ -80,16 +80,16 @@ ReapersLuck::ReapersLuck(LegendaryWeapon* p_weapon)
 
 unsigned int VampiricEdge::use(unsigned int base_atk, Entity& target)
 {
-	weapon->use(base_atk, target);
-	std::cout << "(@)\n" <<"Vampiric effect heals for " << base_atk << "\n";
-	return base_atk;
+	const int val = weapon->use(base_atk, target);
+	std::cout << "(@)\n" <<"Vampiric effect heals for " << val + base_atk << "\n";
+	return val + base_atk;
 }
 unsigned int BloodLust::use(unsigned int base_atk, Entity& target)
 {
-	weapon->use(base_atk, target);
+	const int val = weapon->use(base_atk, target);
 	weapon->addAttack(10);
 	std::cout << "(@)\n" << "Bloodlust adds 10 damage to the weapon \n";
-	return 0;
+	return val;
 }
 
 unsigned int ReapersLuck::use(unsigned int base_atk, Entity& target)
@@ -100,8 +100,8 @@ unsigned int ReapersLuck::use(unsigned int base_atk, Entity& target)
 		base_atk = 999999;
 		std::cout << "(@)\n" << "Reaper's Luck activates and instakills!\n";
 	}
-	weapon->use(base_atk, target);
-	return 0;
+	const int val = weapon->use(base_atk, target);
+	return val;
 }
 
 
