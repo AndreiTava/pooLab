@@ -13,6 +13,7 @@ private:
         special,
         item
     };
+    std::unique_ptr<LegendaryWeapon> weapon;
     unsigned int EP=100, MEP=100, POT=5, LVL = 1, EXP = 0;
     void levelUp();
     void attack(Entity& target);
@@ -21,7 +22,7 @@ private:
     void describe(std::ostream&) const override;
     static commands resolveCommand(const std::string&);
 public:
-    explicit Player(std::string);
+    explicit Player(std::string,LegendaryWeapon*);
     ~Player() override = default;
     Player(const Player&) = delete;
     void operator=(const Player&) = delete;

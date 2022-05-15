@@ -22,7 +22,7 @@ protected:
 	static types resolveType(const std::string&);
 public:
 	~Enemy() override = default;
-	Enemy(std::string = "Generic Enemy", unsigned int = 10, unsigned int = 10, unsigned int = 0, unsigned int = 0,decideStrategy* = new normalStrategy);
+	explicit Enemy(std::string = "Generic Enemy", unsigned int = 10, unsigned int = 10, unsigned int = 0, unsigned int = 0,decideStrategy* = new normalStrategy);
 	Enemy(const Enemy&);
 	void operator=(const Enemy&);
 	void act(Entity& ,std::vector<Entity*>&) override;

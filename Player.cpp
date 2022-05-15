@@ -1,8 +1,9 @@
 #include "Player.h"
 
-Player::Player(std::string name)
+Player::Player(std::string p_name,LegendaryWeapon* p_weapon)
 	:
-Entity(std::move(name),200,25,15)
+Entity(std::move(p_name),200,25,15),
+weapon(p_weapon)
 {}
 
 void Player::describe(std::ostream& out) const
@@ -56,7 +57,9 @@ void Player::attack(Entity& target)
 	if (!target.isAlive())
 		throw TargetException();
 	std::cout <<"(>>)\n" << this->name << " attacks " << target.getName() << "\n";
-	target.takeDamage(this->ATK);
+	const int heal = weapon->use(ATK, target);
+	if(heal)
+		this->HP = std::min(this->HP + heal, this->MHP);
 	if (!target.isAlive())
 		target.die(*this);
 }

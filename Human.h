@@ -38,7 +38,7 @@ template <class weapon_type>
 void Human<weapon_type>::describe(std::ostream& out) const
 {
 	this->Enemy::describe(out);
-	out << "is wielding a " << weapon << "\n";
+	out << "is wielding a " << weapon;
 }
 
 template <class weapon_type>
@@ -50,7 +50,7 @@ void Human<weapon_type>::interact(Entity& target)
 
 inline Human<Staff>::Human()
 	:
-	Enemy("Human", 50, 20, 15, 100)
+	Enemy("Human", 30, 10, 5,100, new healerStrategy)
 {}
 
 
@@ -59,7 +59,7 @@ inline Human<Staff>::Human()
 inline void Human<Staff>::describe(std::ostream& out) const
 {
 	this->Enemy::describe(out);
-	out << "is wielding a " << weapon << "\n";
+	out << "is wielding a " << weapon;
 }
 
 
