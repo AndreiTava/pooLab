@@ -46,7 +46,7 @@ protected:
 	std::unique_ptr<LegendaryWeapon> weapon;
 public:
 	LegendaryDecorator(LegendaryWeapon*);
-	unsigned int use(unsigned int, Entity&) = 0;
+	unsigned int use(unsigned int, Entity&) override = 0;
 	void addAttack(unsigned) override;
 };
 
@@ -74,4 +74,4 @@ template<class modifier>
 LegendaryWeapon* applyModifier(LegendaryWeapon* wpn)
 {
 	return new modifier(wpn);
-};
+}
