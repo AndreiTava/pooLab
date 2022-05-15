@@ -1,6 +1,7 @@
 #pragma once
 #include "Strategy.h"
 #include "Player.h"
+#include <memory>
 
 class Enemy :
 	public Entity
