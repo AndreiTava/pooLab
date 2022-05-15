@@ -4,8 +4,8 @@
 class Sword
 {
 	static std::string name;
-	void use(unsigned int, Entity&);
 public:
+	void use(unsigned int, Entity&);
 	static std::string getName();
 	friend std::ostream& operator<<(std::ostream&, const Sword&);
 };
@@ -14,15 +14,14 @@ public:
 class Staff 
 {
 	static std::string name;
-	void use(unsigned int, Entity& targets);
 public:
+	void use(unsigned int, Entity& targets);
 	static std::string getName();
 	friend std::ostream& operator<<(std::ostream&, const Staff&);
 };
 class LegendaryWeapon
 {
 public:
-
 	virtual void use(unsigned int,Entity&) = 0;
 	virtual ~LegendaryWeapon() = default;
 };

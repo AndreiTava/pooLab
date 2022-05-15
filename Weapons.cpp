@@ -1,7 +1,8 @@
 #include "Weapons.h"
 
-constexpr std::string Sword::name = "Sword";
-constexpr std::string Staff::name = "Staff";
+std::string Sword::name = "Sword";
+std::string Staff::name = "Staff";
+
 
 void Sword::use(unsigned int base_atk, Entity& target)
 {
@@ -10,7 +11,7 @@ void Sword::use(unsigned int base_atk, Entity& target)
 
 void Staff::use(unsigned int base_atk, Entity& target)
 {
-	target.takeDamage(-(base_atk));
+	target.takeDamage(-1*(base_atk));
 }
 
 std::string Sword::getName()

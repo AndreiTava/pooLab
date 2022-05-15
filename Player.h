@@ -21,7 +21,7 @@ private:
     void describe(std::ostream&) const override;
     static commands resolveCommand(const std::string&);
 public:
-    explicit Player(std::string,LegendaryWeapon&);
+    explicit Player(std::string);
     ~Player() override = default;
     Player(const Player&) = delete;
     void operator=(const Player&) = delete;

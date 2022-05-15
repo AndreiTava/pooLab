@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include "Human.h"
 #include "Enemies.h"
 #include <memory>
 #include <algorithm>

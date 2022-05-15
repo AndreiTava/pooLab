@@ -1,14 +1,11 @@
 #include "Battle.h"
-#include "Human.h"
-
 Battle::Battle(Player& plr)
 	:
 	player(&plr)
 {
-
-	Entity* newEnemy = new Human<Sword>();
+	Entity* newEnemy = new Human<Sword>;
 	enemies.push_back(newEnemy);
-	newEnemy = new Human<Staff>();
+	newEnemy = new Human<Staff>;
 	enemies.push_back(newEnemy);
 }
 Battle::~Battle()
